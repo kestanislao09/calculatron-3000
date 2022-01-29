@@ -1,0 +1,81 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 300px;
+    border: solid;
+    border-radius:20px;
+    border-width: 3px;
+    padding: 16px;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+    grid-template-areas:"clear equals equals div"
+                        "seven eight nine mult"
+                        "four five six minus"
+                        "three two one plus"
+                        "zero zero zero plus";
+}
+
+button {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    border: solid 3px;
+    border-radius: 10px;
+    height: 95%;
+    width: 95%;
+    
+}
+
+div .equals {
+    width: 98%;
+    grid-column-start: equals;
+    grid-column-end: equals;
+}
+
+div .zero {
+    height: 90%;
+    width: 98%;
+    grid-column-start: zero;
+    grid-column-end: zero;    
+    grid-row-start: zero;
+    grid-row-end: zero;
+}
+
+.plus {
+    grid-row-start: plus;
+    grid-row-end: plus;
+    grid-column-start: plus;
+    grid-column-end: plus;
+}
+
+#viewport {
+    border: solid 3px;
+    border-radius: 10px;
+    height: 54px;
+    width: 95%;
+    padding: 0px 8px;
+    margin-bottom: 16px;
+    font-size: 48px;
+    text-align: right;
+}
