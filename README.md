@@ -34,4 +34,4 @@ I'm assuming that I'll be using:
 ## **UPDATES**
 
 ## 2/4/22 0335
- - Finally got the calculator into working order. Logic was tough to figure out, but with (alot) of tinkering I was able to get the numbers to store properly in the variables, and operate on them in a way that makes sense. Code needs **a-f---in-Lot** of optimization and cleaning. But the main thing is that it works. 
+ - Finally got the calculator into working order. Logic was tough to figure out, but with (alot) of tinkering I was able to get the numbers to store properly in the variables, and operate on them in a way that makes sense. Code needs **a-f---in-Lot** of optimization and cleaning. But the main thing is that it works. **update @0355** I also forgot to keep it from crashing when the user tries to divide by zero. Please avoid doing so to prevent wormholes to alternate universes from opening 👍
