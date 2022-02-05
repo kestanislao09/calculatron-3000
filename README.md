@@ -19,7 +19,7 @@ I'm assuming that I'll be using:
 
 ## **Things to do**
 1. Fix some minor details with the current CSS
-     - Viewport changes size if there is nothing displayed.
+     - ~~Viewport changes size if there is nothing displayed.~~ **fixed 2/5/22**
      - Need to re-do the CSS grid to acommodate the extra credit items below.
 
 2. Extra credit
@@ -35,3 +35,7 @@ I'm assuming that I'll be using:
 
 ## 2/4/22 0335
  - Finally got the calculator into working order. Logic was tough to figure out, but with (alot) of tinkering I was able to get the numbers to store properly in the variables, and operate on them in a way that makes sense. Code needs **a-f---in-Lot** of optimization and cleaning. But the main thing is that it works. **update @0355** I also forgot to keep it from crashing when the user tries to divide by zero. Please avoid doing so to prevent wormholes to alternate universes from opening 👍
+
+
+## 2/5/22 0348
+ - There was much less clearning and optimizing to do than I thought there would be.. Anyways, reorganized the code to make a bit more sense, make it *slightly* more readable *u kno u kno*. Added more comments than probably needed, but at this point in learning I think I'd rather have more than less for the sake of getting things to stick better. Fixed the viewport doing weird stuff and also added code to throw an error if the user tries to divide by zero (witty comment to be added in future updates.)
