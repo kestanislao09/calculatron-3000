@@ -1,56 +1,57 @@
-function add(a, b) {
-    return a + b;
-};
-
-function sub(a, b) {
-    return a - b;
-};
-
-function mul(a, b) {
-    return a * b;
-};
-
-function div(a, b) {
-    return a / b;
-};
-
+// Applies the selected operation, then...
+// Rounds off the number or converts to exponential form based on number size and length.
 function operate(a, opr, b) {
+    let operatedNum
     switch(opr){
         default:
             console.log('something went wrong..');
             break;
         case('+'):
-            return add(a, b);
+             operatedNum = a + b;
             break;
         case('-'):
-            return sub(a, b);
+             operatedNum = a - b;
             break;
         case('x'):
-            return mul(a, b)
+             operatedNum = a * b;
             break;
         case('/'):
-            return div(a, b);
+            if (b === 0) {
+                return 'error'  // Cannot divide by zero!!
+            }
+             operatedNum = a / b;
     };
 
-}
+    let operatedArr = operatedNum.toString().split('');
+    
+    if (operatedNum > 999999 || operatedNum < -999999) {
+        operatedNum = operatedNum.toExponential(4)
+    } else if (operatedNum <= 999999 && operatedNum >= -999999 && operatedArr.length > 8) {
+        let decimalIndex = 8 - operatedArr.findIndex((decimal) => decimal = '.')
+        operatedNum = Math.round(operatedNum * (10 ** decimalIndex)) / (10 ** decimalIndex)
+    };
 
-//querySelectors 
+    return operatedNum;
+};
+
+// QuerySelectors 
 const numButtons = document.querySelectorAll('.num');
 const oprButtons = document.querySelectorAll('.opr');
 const viewPort = document.querySelector('#viewport');
 const clButton = document.querySelector('.clear');
 
-//Array to store current display number on the screen
+// Numbers are stored as arrays for the most part(more on that down there)
+// to allow digits to be entered in reverse order, while allowing trimming and editing of the number.
 let dispNum = [];
 let prevNumber = [0];
-let currentNum
 let operator = '';
 let reUse = 0;
+
 
 function convertFromArray(arr) {
     return parseInt(arr.join(''))
 }
-let dispConverted = convertFromArray(dispNum);
+
 
 function clearDisplay() {
     dispNum = [];
@@ -61,18 +62,33 @@ function clearDisplay() {
 oprButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
         let buttonContent = e.target.textContent;
+        
+        // Continues to display the current number if '=' is pressed after the first...
+        // number is inputted.
         if (buttonContent === '=' && operator === '') {
             viewPort.textContent = convertFromArray(dispNum);
-        } else if (operator === '') {
+        } else if (operator === '') { 
+            // Normal function of operator buttons after first number is inputted.
             operator = buttonContent;
             previousNum = dispNum;
             clearDisplay();
         } else if (operator !== '') {
-            let current
-            let previous
+            // This 'else if' does a multitude of things... including:
+            //      - Normal operation of the equals sign after second number is inputted
+            //      - Normal operation of operators if pressed after a second number is inputted
+            //      - Allowing for repeat operations to be performed by repeatedly pressing '='
+            //      - Catches syntax errors such as pressing another operator before entering 
+            //        a second number.
+
+            //Variables for the current and previous number to be used in the operate function
+            let previous // This would be our first number
+            let current  // This would be our second number
             
+            //Sets 'previous' according to whether previousNum is an array or an exponential form number
             Array.isArray(previousNum) ? previous = parseInt(previousNum.join('')) : previous = previousNum;
             
+            // Returns an Error if you press '=' before inputting a second number..
+            // otherwise sets 'current' according to what is inputted after the operator
             if (isNaN(convertFromArray(dispNum))) {
                 viewPort.textContent = 'error'
                 reUse = 1
@@ -81,29 +97,32 @@ oprButtons.forEach((button) => {
                 current = convertFromArray(dispNum);
             };
             
+            // Calls on the operate function then updates **only** the viewport
+            // This saves dispNum to be used for repeating the previous operation(pressing '=' multiple times)
             let operatedNum = operate(previous, operator, current);
-            let operatedArr = operatedNum.toString().split('');
-            if (operatedNum > 999999) {
-                operatedNum = operatedNum.toExponential(4)
-            } else if (operatedNum <= 999999 && operatedArr.length > 8) {
-                console.log(operatedArr)
-                operatedNum = operatedArr.splice(8, operatedArr.length-8).join('')
-            }
-            
-            viewPort.textContent = operatedNum;
-            
-            if (buttonContent === '=') {
-                previousNum = operatedNum;
-                reUse = 1;
-            }  else if (reUse === 1) {
-                operator = buttonContent;
-                clearDisplay();
-                reUse = 0;
+            if (operatedNum === 'error') {
+                viewPort.textContent = operatedNum
+                reUse = 1
+                return;
             } else {
-                operator = buttonContent;
-                dispNum = [];
-                previousNum = operatedNum;
-            };
+                viewPort.textContent = operatedNum;
+                
+                if (buttonContent === '=') { 
+                    // Allows using last operation by pressing '=' repeatedly
+                    previousNum = operatedNum;
+                    reUse = 1;
+                }  else if (reUse === 1) { 
+                    // Allows the calculator to function normally after pressing '='
+                    operator = buttonContent;
+                    clearDisplay();
+                    reUse = 0;
+                } else { 
+                    // Normal function for operator after first number is inputted.
+                    operator = buttonContent;
+                    dispNum = [];
+                    previousNum = operatedNum;
+                };
+            };  
         };
     });
 });
@@ -111,15 +130,20 @@ oprButtons.forEach((button) => {
 numButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
         let buttonContent = e.target.textContent;
-        if (reUse === 1) {
-            clearDisplay();
+        
+        if (reUse === 1) {   // Resets display and operator after repeating operations have been used..
+            clearDisplay();  // or if the user triggers an error
             operator = '';
         }
+        
+        // Pushes each digit into an array that stores the display number..
+        // then updates the viewport with the current display number. 
         dispNum.push(buttonContent);
         viewPort.textContent = dispNum.join('');
     });
 });
 
+// Completely resets the calculator.
 clButton.addEventListener('click', (e) => {
     clearDisplay();
     operator = '';
