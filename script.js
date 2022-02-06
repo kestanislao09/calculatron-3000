@@ -144,7 +144,7 @@ numButtons.forEach((button) => {
         
         // Pushes each digit into an array that stores the display number..
         // then updates the viewport with the current display number. 
-        if (dispNum.length > 11) {
+        if (dispNum.length > 10) {
             return;
         } else {
             dispNum.push(buttonContent);
@@ -163,7 +163,7 @@ decButton.addEventListener('click', (e) => {
         
     };
     
-    if (deciToggle === 1 || dispNum.length > 11) {
+    if (deciToggle === 1 || dispNum.length > 10) {
         return;
     } else if (dispNum == []) {
         dispNum.push(0);
