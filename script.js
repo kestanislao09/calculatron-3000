@@ -26,9 +26,9 @@ function operate(a, opr, b) {
     
     if (operatedNum > 9999999 || operatedNum < -999999) {
         operatedNum = operatedNum.toExponential(6)
-    } else if (operatedNum <= 9999999 && operatedNum >= -9999999 && operatedArr.length > 11) {
+    } else if (operatedNum <= 9999999 && operatedNum >= -9999999 && operatedArr.length > 10) {
         let findDecimal = operatedArr.findIndex((decimal) => decimal === '.');
-        let decimalIndex = (11 - findDecimal)
+        let decimalIndex = (10 - findDecimal)
         operatedNum = Math.round(operatedNum * (10 ** decimalIndex)) / (10 ** decimalIndex)
     };
 
