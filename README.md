@@ -20,11 +20,11 @@ I'm assuming that I'll be using:
 ## **Things to do**
 1. Fix some minor details with the current CSS
      - ~~Viewport changes size if there is nothing displayed.~~ **fixed 2/5/22**
-     - Need to re-do the CSS grid to acommodate the extra credit items below.
+     - ~~Need to re-do the CSS grid to acommodate the extra credit items below.~~ **fixed 2/5/22**
 
 2. Extra credit
-     - Implement a decimal button.
-     - Implement a backspace button
+     - ~~Implement a decimal button.~~ **fixed 2/5/22**
+     - ~~Implement a backspace button~~ **fixed 2/5/22**
      - Keyboard support
 
 3. Clean up the code
@@ -39,3 +39,6 @@ I'm assuming that I'll be using:
 
 ## 2/5/22 0348
  - There was much less clearning and optimizing to do than I thought there would be.. Anyways, reorganized the code to make a bit more sense, make it *slightly* more readable *u kno u kno*. Added more comments than probably needed, but at this point in learning I think I'd rather have more than less for the sake of getting things to stick better. Fixed the viewport doing weird stuff and also added code to throw an error if the user tries to divide by zero (witty comment to be added in future updates.)
+
+ ## 2/5/22 2158
+ - fixed the css buttons, coded in the decimal and backspace buttons, and adjusted the code for rounding and number inputs to prevent viewport overflow. The night is just getting started, but I thought I'd commit these changes since the next step, keyboard support, may be a big change. We'll see tho :p

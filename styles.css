@@ -28,11 +28,11 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     gap: 8px;
-    grid-template-areas:"clear equals equals div"
-                        "seven eight nine mult"
-                        "four five six minus"
-                        "three two one plus"
-                        "zero zero zero plus";
+    grid-template-areas:"clear bkspc div mult"
+                        "seven eight nine minus"
+                        "four five six plus"
+                        "three two one equals"
+                        "zero zero deci equals";
 }
 
 button {
@@ -42,31 +42,30 @@ button {
     font-size: 32px;
     border: solid 3px;
     border-radius: 10px;
-    height: 95%;
-    width: 95%;
+    height: 100%;
+    width: 100%;
     
 }
 
+div .bksp {
+    font-size: 16px;
+    font-weight: bold;
+}
+
 div .equals {
-    width: 98%;
+    height: 100%;
     grid-column-start: equals;
     grid-column-end: equals;
+    grid-row-start: equals;
+    grid-row-end: equals;
 }
 
 div .zero {
-    height: 90%;
-    width: 98%;
+    width: 100%;
     grid-column-start: zero;
     grid-column-end: zero;    
     grid-row-start: zero;
     grid-row-end: zero;
-}
-
-.plus {
-    grid-row-start: plus;
-    grid-row-end: plus;
-    grid-column-start: plus;
-    grid-column-end: plus;
 }
 
 #viewport {

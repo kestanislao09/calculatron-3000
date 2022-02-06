@@ -24,10 +24,11 @@ function operate(a, opr, b) {
 
     let operatedArr = operatedNum.toString().split('');
     
-    if (operatedNum > 999999 || operatedNum < -999999) {
-        operatedNum = operatedNum.toExponential(4)
-    } else if (operatedNum <= 999999 && operatedNum >= -999999 && operatedArr.length > 8) {
-        let decimalIndex = 8 - operatedArr.findIndex((decimal) => decimal = '.')
+    if (operatedNum > 9999999 || operatedNum < -999999) {
+        operatedNum = operatedNum.toExponential(6)
+    } else if (operatedNum <= 9999999 && operatedNum >= -9999999 && operatedArr.length > 11) {
+        let findDecimal = operatedArr.findIndex((decimal) => decimal === '.');
+        let decimalIndex = (11 - findDecimal)
         operatedNum = Math.round(operatedNum * (10 ** decimalIndex)) / (10 ** decimalIndex)
     };
 
@@ -37,19 +38,22 @@ function operate(a, opr, b) {
 // QuerySelectors 
 const numButtons = document.querySelectorAll('.num');
 const oprButtons = document.querySelectorAll('.opr');
-const viewPort = document.querySelector('#viewport');
 const clButton = document.querySelector('.clear');
+const decButton = document.querySelector('.dec');
+const bkspButton = document.querySelector('.bksp');
+const viewPort = document.querySelector('#viewport');
 
 // Numbers are stored as arrays for the most part(more on that down there)
 // to allow digits to be entered in reverse order, while allowing trimming and editing of the number.
 let dispNum = [];
-let prevNumber = [0];
+let previousNum = [];
 let operator = '';
 let reUse = 0;
+let deciToggle = 0;
 
 
 function convertFromArray(arr) {
-    return parseInt(arr.join(''))
+    return Number(arr.join(''))
 }
 
 
@@ -57,6 +61,7 @@ function clearDisplay() {
     dispNum = [];
     viewPort.textContent = '';
     reUse = 0;
+    deciToggle = 0;
 }
 
 oprButtons.forEach((button) => {
@@ -85,7 +90,7 @@ oprButtons.forEach((button) => {
             let current  // This would be our second number
             
             //Sets 'previous' according to whether previousNum is an array or an exponential form number
-            Array.isArray(previousNum) ? previous = parseInt(previousNum.join('')) : previous = previousNum;
+            Array.isArray(previousNum) ? previous = convertFromArray(previousNum) : previous = previousNum;
             
             // Returns an Error if you press '=' before inputting a second number..
             // otherwise sets 'current' according to what is inputted after the operator
@@ -121,6 +126,7 @@ oprButtons.forEach((button) => {
                     operator = buttonContent;
                     dispNum = [];
                     previousNum = operatedNum;
+                    deciToggle = 0;
                 };
             };  
         };
@@ -138,14 +144,52 @@ numButtons.forEach((button) => {
         
         // Pushes each digit into an array that stores the display number..
         // then updates the viewport with the current display number. 
+        if (dispNum.length > 11) {
+            return;
+        } else {
+            dispNum.push(buttonContent);
+            viewPort.textContent = dispNum.join('');
+        }
+    });
+});
+
+// Allows the user to add in one decimal point to the display number,
+// while adding a leading zero if decimal is pressed before any numbers.
+decButton.addEventListener('click', (e) => {
+    let buttonContent = e.target.textContent;
+    if (reUse == 1) {
+        clearDisplay();
+        operator = '';
+        
+    };
+    
+    if (deciToggle === 1 || dispNum.length > 11) {
+        return;
+    } else if (dispNum == []) {
+        dispNum.push(0);
         dispNum.push(buttonContent);
         viewPort.textContent = dispNum.join('');
-    });
+        deciToggle = 1;
+    } else {
+        dispNum.push(buttonContent);
+        viewPort.textContent = dispNum.join('');
+        deciToggle = 1;
+    };
 });
 
 // Completely resets the calculator.
 clButton.addEventListener('click', (e) => {
     clearDisplay();
     operator = '';
-    prevNumber = [];
+    previousNum = [];
 });
+
+// Its a backspace button!
+bkspButton.addEventListener('click', (e) => {
+    if (dispNum == []) {
+        return;
+    } else {
+        dispNum.pop();
+        viewPort.textContent = dispNum.join('');
+    }
+})
