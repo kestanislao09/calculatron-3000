@@ -23,13 +23,13 @@ I'm assuming that I'll be using:
      - ~~Need to re-do the CSS grid to acommodate the extra credit items below.~~ **fixed 2/5/22**
 
 2. Extra credit
-     - ~~Implement a decimal button.~~ **fixed 2/5/22**
-     - ~~Implement a backspace button~~ **fixed 2/5/22**
-     - Keyboard support
+     - ~~Implement a decimal button.~~ **done 2/5/22**
+     - ~~Implement a backspace button~~ **done 2/5/22**
+     - ~~Keyboard support~~ **done 2/9/22**
 
 3. Clean up the code
 
-4. Pretti-fy the CSS
+4. ~~Pretti-fy the CSS~~ **done-ish 2/9/22**
 
 ## **UPDATES**
 
@@ -42,3 +42,6 @@ I'm assuming that I'll be using:
 
  ## 2/5/22 2158
  - fixed the css buttons, coded in the decimal and backspace buttons, and adjusted the code for rounding and number inputs to prevent viewport overflow. The night is just getting started, but I thought I'd commit these changes since the next step, keyboard support, may be a big change. We'll see tho :p
+
+ ## 2/9/22 2321 KEYBOARD SUPPORT BAYBEEEEEEE!
+ - Finally finished. Keyboard support is up and running, had to iron out some bugs there, but it was easier than expected. Also added some color to the CSS so it won't look so bare-bones. There can be a few more optimizations to make the code just a little bit easier to read *(we can come back to that on a later date anyways)*, but aside from that this project is finished. If I do end up finding something cool to implement with this then *maaaaaaaybe* I will add it to the portfolio, but it was definitely a great learning experience.

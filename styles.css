@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(30, 214, 238);
+}
+
 .wrapper {
     display: flex;
     width: 100%;
@@ -13,6 +17,7 @@
     align-items: center;
     height: 400px;
     width: 300px;
+    background-color: rgb(63, 63, 63);
     border: solid;
     border-radius:20px;
     border-width: 3px;
@@ -39,25 +44,40 @@ button {
     display:flex;
     justify-content: center;
     align-items: center;
+    background-color: rgb(190, 190, 190);
+    border-color: rgb(37, 37, 37);
     font-size: 32px;
-    border: solid 3px;
     border-radius: 10px;
+    border-width: 3px;
     height: 100%;
     width: 100%;
-    
+}
+
+div .opr{
+    background-color: rgb(135, 158, 187);
+}
+
+div .clear {
+    background-color: rgb(173, 61, 61);
 }
 
 div .bksp {
+    background-color: rgb(255, 236, 126);
     font-size: 16px;
     font-weight: bold;
 }
 
 div .equals {
     height: 100%;
+    background-color: rgb(56, 146, 56);
     grid-column-start: equals;
     grid-column-end: equals;
     grid-row-start: equals;
     grid-row-end: equals;
+}
+
+div .dec{
+    background-color: rgb(151, 151, 151);
 }
 
 div .zero {
@@ -69,6 +89,7 @@ div .zero {
 }
 
 #viewport {
+    background-color: rgb(231, 231, 231);
     border: solid 3px;
     border-radius: 10px;
     height: 70px;

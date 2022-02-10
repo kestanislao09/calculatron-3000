@@ -6,16 +6,17 @@ function operate(a, opr, b) {
         default:
             console.log('something went wrong..');
             break;
-        case('+'):
+        case '+':
              operatedNum = a + b;
             break;
-        case('-'):
+        case '-':
              operatedNum = a - b;
             break;
-        case('x'):
+        case 'x':
+        case '*':
              operatedNum = a * b;
             break;
-        case('/'):
+        case '/':
             if (b === 0) {
                 return 'error'  // Cannot divide by zero!!
             }
@@ -193,3 +194,120 @@ bkspButton.addEventListener('click', (e) => {
         viewPort.textContent = dispNum.join('');
     }
 })
+
+// Keyboard Support!
+window.addEventListener("keydown", function (event) {
+    console.log(event.key);
+    switch (event.key) {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            if (reUse === 1) {  
+                clearDisplay();
+                operator = '';
+            }
+            
+            if (dispNum.length > 10) {
+                return;
+            } else {
+                dispNum.push(event.key);
+                viewPort.textContent = dispNum.join('');
+            }
+            break;
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case 'Enter':
+        let buttonContent = event.key;
+        
+        if (buttonContent === 'Enter' && operator === '') {
+            viewPort.textContent = convertFromArray(dispNum);
+        } else if (operator === '') { 
+            operator = buttonContent;
+            previousNum = dispNum;
+            clearDisplay();
+        } else if (operator !== '') {
+            let previous 
+            let current  
+            
+            Array.isArray(previousNum) ? previous = convertFromArray(previousNum) : previous = previousNum;
+            
+            if (isNaN(convertFromArray(dispNum))) {
+                viewPort.textContent = 'error'
+                reUse = 1
+                return;
+            } else {
+                current = convertFromArray(dispNum);
+            };
+            
+            let operatedNum = operate(previous, operator, current);
+            if (operatedNum === 'error') {
+                viewPort.textContent = operatedNum
+                reUse = 1
+                return;
+            } else {
+                viewPort.textContent = operatedNum;
+                
+                if (buttonContent === 'Enter') { 
+                    previousNum = operatedNum;
+                    reUse = 1;
+                }  else if (reUse === 1) { 
+                    operator = buttonContent;
+                    clearDisplay();
+                    reUse = 0;
+                } else { 
+                    operator = buttonContent;
+                    dispNum = [];
+                    previousNum = operatedNum;
+                    deciToggle = 0;
+                };
+            };  
+        };
+        break;
+        case '.':
+            if (reUse == 1) {
+                clearDisplay();
+                operator = '';
+                
+            };
+            
+            if (deciToggle === 1 || dispNum.length > 10) {
+                return;
+            } else if (dispNum == []) {
+                dispNum.push(0);
+                dispNum.push(event.key);
+                viewPort.textContent = dispNum.join('');
+                deciToggle = 1;
+            } else {
+                dispNum.push(event.key);
+                viewPort.textContent = dispNum.join('');
+                deciToggle = 1;
+            };
+            break; 
+        case 'Delete':
+            clearDisplay();
+            operator = '';
+            previousNum = [];
+            break;
+        case 'Backspace':
+            if (dispNum == []) {
+                return;
+            } else {
+                dispNum.pop();
+                viewPort.textContent = dispNum.join('');
+            }
+            break;
+        default:
+            return; // Quit when this doesn't handle the key event.
+          }
+
+});
+            
