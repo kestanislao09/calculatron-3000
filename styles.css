@@ -1,4 +1,5 @@
 body {
+    margin: 0;
     background-color: rgb(30, 214, 238);
 }
 
@@ -98,4 +99,16 @@ div .zero {
     margin-bottom: 16px;
     font-size: 48px;
     text-align: right;
+}
+
+a {
+    color:rgb(37, 37, 37)
+}
+
+.footer {
+    height: 48px;
+    padding: 20px;
+    margin: 0;
+    background-color: rgb(0, 155, 175);
+    text-align: center;
 }
